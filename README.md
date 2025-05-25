@@ -30,11 +30,12 @@ pip install -r requirements.txt
 ```
 
 3. Configure a API Key do Google Gemini:
-   - Copie o arquivo `.env.example` para `.env`
+   - Copie o arquivo de configuração: `copy config.toml.example config.toml`
    - Obtenha sua API Key em: https://aistudio.google.com/app/apikey
-   - Edite o arquivo `.env` e adicione sua chave:
-```
-GEMINI_API_KEY=sua_api_key_aqui
+   - Edite o arquivo `config.toml` e adicione sua chave na seção `[api]`:
+```toml
+[api]
+gemini_api_key = "sua_api_key_aqui"
 ```
 
 ### 2. Executando a Aplicação
@@ -66,27 +67,29 @@ O sistema organiza as informações em:
 - **Python 3.8+**
 - **Streamlit**: Interface web
 - **Google Gemini AI**: Processamento de linguagem natural
-- **Python-dotenv**: Gerenciamento de variáveis de ambiente
+- **TOML**: Formato de configuração estruturado
 
 ## 📁 Estrutura do Projeto
 
 ```
 MaisGestorHealthGen/
 ├── app.py                 # Aplicação principal
+├── config.toml           # Configurações (não versionado)
+├── config.toml.example   # Template de configuração
 ├── requirements.txt       # Dependências Python
-├── .env.example          # Template de configuração
-├── .env                  # Configurações (não versionado)
 ├── .gitignore           # Arquivos ignorados pelo Git
 ├── README.md            # Documentação
+├── CONFIG_TOML.md       # Guia de configuração TOML
 ├── logo.png             # Logo da aplicação
 └── exemplo-consulta.txt # Exemplo de uso
 ```
 
 ## 🔒 Segurança
 
-- A API Key é armazenada em variáveis de ambiente
-- O arquivo `.env` é ignorado pelo Git
+- A API Key é armazenada em arquivo TOML estruturado
+- O arquivo `config.toml` é ignorado pelo Git
 - Não há exposição de credenciais na interface
+- Configuração organizada por seções para melhor manutenibilidade
 
 ## 🎯 Exemplo de Uso
 

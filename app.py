@@ -1,18 +1,60 @@
 import streamlit as st
 from PIL import Image
 import os
+import toml
 from google import genai
 from google.genai import types
 from datetime import datetime
-from dotenv import load_dotenv
 
-# Carregar variáveis de ambiente
-load_dotenv()
+# Carregar configurações do arquivo TOML
+def load_config():
+    """Carrega as configurações do arquivo config.toml"""
+    try:
+        config_path = "config.toml"
+        if not os.path.exists(config_path):
+            st.error("""
+            ❌ **Arquivo config.toml não encontrado!**
+            
+            Para configurar o sistema:
+            1. Copie o arquivo `config.toml.example` para `config.toml`
+            2. Edite o arquivo `config.toml` e adicione sua API Key do Google Gemini
+            3. Obtenha sua API Key em: https://aistudio.google.com/app/apikey
+            """)
+            st.stop()
+            
+        with open(config_path, "r", encoding="utf-8") as f:
+            config = toml.load(f)
+            
+        # Validar se as seções essenciais existem
+        if "api" not in config or not config["api"].get("gemini_api_key"):
+            st.error("""
+            ❌ **API Key não configurada!**
+            
+            Edite o arquivo `config.toml` e configure sua API Key:
+            ```toml
+            [api]
+            gemini_api_key = "sua_api_key_aqui"
+            ```
+            """)
+            st.stop()
+            
+        return config
+        
+    except toml.TomlDecodeError as e:
+        st.error(f"❌ Erro na sintaxe do arquivo config.toml: {str(e)}")
+        st.info("Verifique a sintaxe TOML do arquivo de configuração.")
+        st.stop()
+    except Exception as e:
+        st.error(f"❌ Erro ao carregar config.toml: {str(e)}")
+        st.stop()
 
-# Configurações da página
+# Carregar configurações
+config = load_config()
+
+# Configurações da página usando config.toml
 st.set_page_config(
-    page_title="MaisGestorHealth",
-    layout="centered",
+    page_title=config.get("ui", {}).get("page_title", "MaisGestorHealth"),
+    layout=config.get("ui", {}).get("layout", "centered"),
 )
 
 def analyze_conversation_to_soap(conversation_text):
@@ -22,10 +64,10 @@ def analyze_conversation_to_soap(conversation_text):
     if not conversation_text.strip():
         return None
     
-    # Obter API key da variável de ambiente
-    api_key = os.environ.get("GEMINI_API_KEY")
+    # Obter API key da configuração TOML
+    api_key = config.get("api", {}).get("gemini_api_key")
     if not api_key:
-        st.error("❌ API Key do Gemini não encontrada. Verifique se a variável GEMINI_API_KEY está configurada no arquivo .env")
+        st.error("❌ API Key do Gemini não encontrada. Verifique se a chave 'gemini_api_key' está configurada no arquivo config.toml")
         return None
     
     try:
@@ -72,17 +114,16 @@ def analyze_conversation_to_soap(conversation_text):
         Responda APENAS com as 4 seções organizadas, sem explicações adicionais.
         """
         
-        model = "gemini-2.5-flash-preview-05-20"
+        model = config.get("model", {}).get("model_name", "gemini-2.5-flash-preview-05-20")
         contents = [
             types.Content(
                 role="user",
                 parts=[
                     types.Part.from_text(text=prompt),
-                ],
-            ),
+                ],            ),
         ]
         generate_content_config = types.GenerateContentConfig(
-            response_mime_type="text/plain",
+            response_mime_type=config.get("model", {}).get("response_mime_type", "text/plain"),
         )
 
         # Gerar resposta usando stream
@@ -133,15 +174,19 @@ def analyze_conversation_to_soap(conversation_text):
         return None
 
 def main():
-    # Header com logo e título
-    st.markdown("### MaisGestorHealth")
-    st.markdown("**Análise Inteligente de Consultas Médicas em Formato SOAP**")
+    # Header com logo e título usando configurações do TOML
+    app_name = config.get("app", {}).get("name", "MaisGestorHealth")
+    app_description = config.get("app", {}).get("description", "Análise Inteligente de Consultas Médicas em Formato SOAP")
     
-    # Verificar se o logo existe e exibi-lo
-    if os.path.exists("logo.png"):
+    st.markdown(f"### {app_name}")
+    st.markdown(f"**{app_description}**")
+    
+    # Verificar se o logo existe e exibi-lo usando configuração do TOML
+    logo_path = config.get("ui", {}).get("logo_path", "logo.png")
+    if os.path.exists(logo_path):
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
-            image = Image.open("logo.png")
+            image = Image.open(logo_path)
             st.image(image, width=120)
     
     st.markdown("---")
@@ -239,12 +284,13 @@ Gerado pelo MaisGestorHealth
                         label="📥 Baixar Análise SOAP",
                         data=soap_text,
                         file_name=f"analise_soap_{datetime.now().strftime('%Y%m%d_%H%M')}.txt",
-                        mime="text/plain"
-                    )
+                        mime="text/plain"                    )
     
     # Footer discreto
     st.markdown("---")
-    st.markdown("*MaisGestorHealth • Desenvolvido para profissionais de saúde")
+    app_name = config.get("app", {}).get("name", "MaisGestorHealth")
+    app_version = config.get("app", {}).get("version", "2.0")
+    st.markdown(f"*{app_name} v{app_version} • Desenvolvido para profissionais de saúde")
 
 if __name__ == "__main__":
     main()

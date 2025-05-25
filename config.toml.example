@@ -1,0 +1,30 @@
+# Configuração do MaisGestorHealth - EXEMPLO
+# Arquivo de configuração em formato TOML
+# Copie este arquivo para config.toml e configure suas chaves
+
+[api]
+# Google Gemini API Configuration
+# Obtenha sua API Key em: https://aistudio.google.com/app/apikey
+gemini_api_key = "sua_api_key_aqui"
+
+[app]
+# Configurações da aplicação
+name = "MaisGestorHealth"
+version = "2.0"
+description = "Análise Inteligente de Consultas Médicas em Formato SOAP"
+
+[model]
+# Configurações do modelo de IA
+model_name = "gemini-2.5-flash-preview-05-20"
+response_mime_type = "text/plain"
+
+[ui]
+# Configurações da interface
+page_title = "MaisGestorHealth"
+layout = "centered"
+logo_path = "logo.png"
+
+[security]
+# Configurações de segurança
+# Manter as credenciais seguras
+sensitive_data = true
