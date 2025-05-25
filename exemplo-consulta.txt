@@ -1,0 +1,63 @@
+EXEMPLO DE TRANSCRIÇÃO - CONSULTA MÉDICA
+
+=========================================
+
+Médico: Boa tarde! Como posso ajudá-lo hoje?
+
+Paciente: Doutor, estou com uma dor de cabeça muito forte há 3 dias. É uma dor pulsátil, principalmente do lado direito da cabeça.
+
+Médico: Entendo. Me conte mais sobre essa dor. Em que momento ela piora?
+
+Paciente: Ela piora quando estou em lugares com muito barulho ou luz forte. Também sinto um pouco de náusea junto.
+
+Médico: Você tem histórico de enxaqueca na família?
+
+Paciente: Sim, minha mãe sempre teve enxaqueca.
+
+Médico: Está tomando algum medicamento atualmente?
+
+Paciente: Só paracetamol, mas não está fazendo muito efeito.
+
+Médico: Quando foi a última vez que teve uma dor assim?
+
+Paciente: Nunca tive uma dor tão forte. Às vezes tenho dor de cabeça, mas bem mais fraca.
+
+Médico: Teve febre? Rigidez no pescoço?
+
+Paciente: Não doutor, sem febre. O pescoço está normal.
+
+Médico: Vou examiná-lo agora. Sua pressão arterial está 120x80mmHg, frequência cardíaca 72bpm, temperatura 36.5°C. Ao exame neurológico, não encontrei alterações focais. Reflexos simétricos e preservados. Não há rigidez de nuca.
+
+Médico: O exame dos olhos com oftalmoscópio está normal, sem sinais de papiledema.
+
+Paciente: O que significa isso, doutor?
+
+Médico: Significa que não há sinais de aumento da pressão dentro do crânio. Baseado nos seus sintomas, histórico familiar e exame físico, você está com um quadro compatível com enxaqueca.
+
+Médico: Vou prescrever um medicamento específico para enxaqueca e solicitar alguns exames para descartar outras causas.
+
+Paciente: Que exames, doutor?
+
+Médico: Vamos fazer um hemograma completo, e se não houver melhora com o tratamento, consideraremos uma ressonância magnética do crânio.
+
+Médico: Evite fatores desencadeantes como estresse, jejum prolongado, álcool e alimentos com glutamato monossódico.
+
+Paciente: Entendi, doutor.
+
+Médico: Retorne em 15 dias para reavaliação, ou antes se a dor piorar ou surgirem novos sintomas como febre, vômitos intensos ou alterações visuais.
+
+Paciente: Muito obrigado, doutor!
+
+=========================================
+
+INSTRUÇÕES PARA USO:
+1. Copie todo o texto da consulta acima
+2. Cole no campo "Transcrição da Consulta" do MedSOAP Analyzer
+3. Clique em "Analisar Consulta"
+4. Observe como a IA organiza as informações no formato SOAP
+
+RESULTADO ESPERADO:
+- Subjetivo: Cefaleia pulsátil há 3 dias, fotofobia, fonofobia, náusea
+- Objetivo: Sinais vitais normais, exame neurológico sem alterações
+- Avaliação: Enxaqueca (provável diagnóstico)
+- Plano: Medicação específica, hemograma, orientações, retorno em 15 dias
