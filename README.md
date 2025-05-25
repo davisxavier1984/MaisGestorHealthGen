@@ -1,125 +1,58 @@
-# 🏥 MedSOAP Analyzer
+# MaisGestorHealth
 
-Uma aplicação web moderna para análise inteligente de consultas médicas e conversão automática para o formato SOAP usando Google Gemini AI.
+Análise Inteligente de Consultas Médicas em Formato SOAP.
 
-## 📋 Sobre o Projeto
+## Configuração
 
-O MedSOAP Analyzer é uma ferramenta que utiliza inteligência artificial para analisar transcrições de consultas médicas e organizá-las automaticamente no formato SOAP (Subjetivo, Objetivo, Avaliação, Plano), facilitando a documentação médica.
-
-## ✨ Funcionalidades
-
-- 🤖 **Análise por IA**: Utiliza o Google Gemini 2.5 para análise inteligente
-- 📝 **Formato SOAP**: Organização automática em formato médico padrão
-- 🎯 **Interface Simples**: Design limpo e intuitivo
-- 💾 **Download de Resultados**: Exportação em formato texto
-- 🔒 **Segurança**: Configuração segura via variáveis de ambiente
-
-## 🚀 Como Usar
-
-### 1. Configuração Inicial
-
-1. Clone o repositório:
+1. Crie um arquivo `.env` copiando o `.env.example`:
 ```bash
-git clone <url-do-repositorio>
-cd MaisGestorHealthGen
+cp .env.example .env
 ```
 
-2. Instale as dependências:
-```bash
-pip install -r requirements.txt
-```
-
-3. Configure a API Key do Google Gemini:
-   - Copie o arquivo de configuração: `copy config.toml.example config.toml`
-   - Obtenha sua API Key em: https://aistudio.google.com/app/apikey
-   - Edite o arquivo `config.toml` e adicione sua chave na seção `[api]`:
+2. Configure suas secrets no arquivo `.streamlit/secrets.toml`:
 ```toml
 [api]
-gemini_api_key = "sua_api_key_aqui"
+gemini_api_key = "sua_api_key_aqui"  # Obtenha em https://aistudio.google.com/app/apikey
+
+[app]
+name = "MaisGestorHealth"
+version = "2.0"
+description = "Análise Inteligente de Consultas Médicas em Formato SOAP"
+
+[model]
+model_name = "gemini-2.5-flash-preview-05-20"
+response_mime_type = "text/plain"
+
+[ui]
+page_title = "MaisGestorHealth"
+layout = "centered"
+logo_path = "logo.png"
+
+[security]
+sensitive_data = true
 ```
 
-### 2. Executando a Aplicação
+3. Certifique-se que os arquivos `.env` e `.streamlit/secrets.toml` estão no `.gitignore` para manter suas credenciais seguras.
+
+## Executando o Aplicativo
 
 ```bash
 streamlit run app.py
 ```
 
-A aplicação será aberta em seu navegador no endereço `http://localhost:8501`
+## Formato SOAP
 
-### 3. Usando o Sistema
+O aplicativo analisa transcrições de consultas médicas e organiza as informações no formato SOAP:
 
-1. **Cole a Transcrição**: Insira a transcrição completa da consulta médica
-2. **Clique em Analisar**: O sistema processará automaticamente com IA
-3. **Visualize o SOAP**: Os resultados serão organizados nas 4 seções
-4. **Baixe o Resultado**: Use o botão de download para salvar
+- **S**ubjetivo: Sintomas e queixas relatadas pelo paciente
+- **O**bjetivo: Sinais vitais, exame físico e dados observáveis
+- **A**valiação: Diagnóstico ou hipótese diagnóstica
+- **P**lano: Tratamento, exames complementares e orientações
 
-## 📊 Formato SOAP
+## Recursos
 
-O sistema organiza as informações em:
-
-- **🗣️ SUBJETIVO**: Sintomas e queixas relatadas pelo paciente
-- **🔍 OBJETIVO**: Sinais vitais, exame físico e dados observáveis  
-- **🎯 AVALIAÇÃO**: Diagnóstico ou hipótese diagnóstica
-- **📋 PLANO**: Tratamento, medicações, exames e orientações
-
-## 🛠️ Tecnologias Utilizadas
-
-- **Python 3.8+**
-- **Streamlit**: Interface web
-- **Google Gemini AI**: Processamento de linguagem natural
-- **TOML**: Formato de configuração estruturado
-
-## 📁 Estrutura do Projeto
-
-```
-MaisGestorHealthGen/
-├── app.py                 # Aplicação principal
-├── config.toml           # Configurações (não versionado)
-├── config.toml.example   # Template de configuração
-├── requirements.txt       # Dependências Python
-├── .gitignore           # Arquivos ignorados pelo Git
-├── README.md            # Documentação
-├── CONFIG_TOML.md       # Guia de configuração TOML
-├── logo.png             # Logo da aplicação
-└── exemplo-consulta.txt # Exemplo de uso
-```
-
-## 🔒 Segurança
-
-- A API Key é armazenada em arquivo TOML estruturado
-- O arquivo `config.toml` é ignorado pelo Git
-- Não há exposição de credenciais na interface
-- Configuração organizada por seções para melhor manutenibilidade
-
-## 🎯 Exemplo de Uso
-
-**Entrada (Transcrição):**
-```
-Médico: Boa tarde! Como posso ajudá-lo hoje?
-Paciente: Doutor, estou com uma dor de cabeça muito forte há 3 dias...
-```
-
-**Saída (Formato SOAP):**
-- Organização automática em seções estruturadas
-- Identificação de sintomas, sinais vitais, diagnósticos
-- Plano de tratamento e orientações
-
-## 🤝 Contribuindo
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature
-3. Commit suas mudanças
-4. Push para a branch
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE para detalhes.
-
-## 🆘 Suporte
-
-Para suporte ou dúvidas, abra uma issue no repositório do projeto.
-
----
-
-**Desenvolvido para profissionais de saúde • Powered by Google Gemini**
+- Análise automatizada usando IA (Google Gemini)
+- Interface intuitiva para entrada da transcrição
+- Formatação clara em seções SOAP
+- Download do resultado em formato de texto
+- Processamento seguro das informações
